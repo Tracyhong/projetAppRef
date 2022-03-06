@@ -21,15 +21,14 @@ public class ServeurBRi implements Runnable {
 	public void run() {
 		try {
 			while(true) {
-//				if(listen_socket.getLocalPort()==PORT_PROG)
-//					new ServiceProg(listen_socket.accept())).start();
-//				else 
-				new ServiceAma(listen_socket.accept()).start();
+				if(listen_socket.getLocalPort()==PORT_PROG)
+					new ServiceProg(listen_socket.accept()).start();
+				else new ServiceAma(listen_socket.accept()).start();
 			}
 		}
 		catch (IOException e) { 
 			try {this.listen_socket.close();} catch (IOException e1) {}
-			System.err.println("Pb sur le port d'écoute :"+e);
+			System.err.println("Pb sur le port d'Ã©coute :"+e);
 		}
 	}
 
@@ -38,8 +37,4 @@ public class ServeurBRi implements Runnable {
 		try {this.listen_socket.close();} catch (IOException e1) {}
 	}
 
-	// lancement du serveur
-	public void lancer() {
-		(new Thread(this)).start();		
-	}
 }

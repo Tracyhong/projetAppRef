@@ -20,13 +20,13 @@ public class ServiceInversion extends Service {
 		try {BufferedReader in = new BufferedReader (new InputStreamReader(client.getInputStream ( )));
 			PrintWriter out = new PrintWriter (client.getOutputStream ( ), true);
 
-			out.println("Bienvenue dans le service d'inversion. ##Tapez un texte à inverser");
+			out.println("MODIFICATION ##Bienvenue dans le service d'inversion. ##Tapez un texte a inverser");
 		
 			String line = in.readLine();		
 	
 			String invLine = new String (new StringBuffer(line).reverse());
 			
-			out.println("Votre texte inversé : "+invLine + "##Fin du service d'inversion");
+			out.println("Votre texte inverse : "+invLine + "##Fin du service d'inversion");
 			
 		}
 		catch (IOException e) {

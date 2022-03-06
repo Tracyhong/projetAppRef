@@ -30,15 +30,16 @@ public class BRiLaunch {
         System.out.println("Les programmateurs se connectent au serveur 3001 pour lancer une activité");
         System.out.println("Les amateurs se connectent au serveur 4001 pour lancer une activité");
 
-        //new Thread(new ServeurBRi(PORT_PROG)).start();
+        new Thread(new ServeurBRi(PORT_PROG)).start();
         new Thread(new ServeurBRi(PORT_AMA)).start();
+
         //initialiser les services existants
         //OU le mettre dans le static dans service registry
         //OU faire en sorte que le programmeur les ajoute
-        ServiceRegistry.addService(urlcl.loadClass("services.ServiceInversion").asSubclass(Service.class));
-        ServiceRegistry.addService(urlcl.loadClass("services.ServiceCorrectionEspace").asSubclass(Service.class));
-        ServiceRegistry.addService(urlcl.loadClass("services.ServiceMajusculeDebut").asSubclass(Service.class));
-        System.out.println("Service inversion ajouté");
+        //ServiceRegistry.addService(urlcl.loadClass("services.ServiceInversion").asSubclass(Service.class));
+        //ServiceRegistry.addService(urlcl.loadClass("services.ServiceCorrectionEspace").asSubclass(Service.class));
+        //ServiceRegistry.addService(urlcl.loadClass("services.ServiceMajusculeDebut").asSubclass(Service.class));
+        //System.out.println("Service inversion ajouté");
 
     }
 }

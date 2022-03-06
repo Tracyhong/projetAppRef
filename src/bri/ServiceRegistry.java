@@ -9,7 +9,7 @@ import java.util.Vector;
 
 public class ServiceRegistry {
 	// cette classe est un registre de services
-	// partagée en concurrence par les clients et les "ajouteurs" de services,
+	// partagÃ©e en concurrence par les clients et les "ajouteurs" de services,
 	// un Vector pour cette gestion est pratique
 
 	static {
@@ -18,54 +18,60 @@ public class ServiceRegistry {
 	private static List<Class<? extends Service>> servicesClasses;
 
 	public static void addService(Class<? extends Service> runnableClass) throws ValidationException {
-		// vérifier la conformité par introspection
+		// vÃ©rifier la conformitÃ© par introspection
 		// si non conforme --> exception
 		validation(runnableClass);
-		servicesClasses.add(runnableClass);
+		if(!serviceExist(runnableClass.getSimpleName())) servicesClasses.add(runnableClass);
+		System.out.println("Service "+runnableClass.getSimpleName()+" ajoutÃ©");
 	}
 
-	// une méthode de validation renvoie void et lève une exception si non validation
+	// une mÃ©thode de validation renvoie void et lÃ¨ve une exception si non validation
 	// surtout pas de retour boolean !
 	private static void validation(Class<? extends Service> classe) throws ValidationException {
-		// cette partie pourrait être déléguée à un objet spécialisé
+		// cette partie pourrait Ãªtre dÃ©lÃ©guÃ©e Ã  un objet spÃ©cialisÃ©
 		// le constructeur avec Socket
 		Constructor<? extends Service> c = null;
 		try { 
 			c = classe.getConstructor(java.net.Socket.class); 
 		} catch (NoSuchMethodException e) {
-			// transformation du type de l'exception quand l'erreur est détectée par ce biais
+			// transformation du type de l'exception quand l'erreur est dÃ©tectÃ©e par ce biais
 			throw new ValidationException("Il faut un constructeur avec Socket");
 		}
 		int modifiers = c.getModifiers();
 		if (!Modifier.isPublic(modifiers)) 
-			throw new ValidationException("Le constructeur (Socket) doit être public");
+			throw new ValidationException("Le constructeur (Socket) doit Ãªtre public");
 		if (c.getExceptionTypes().length != 0)
 			throw new ValidationException("Le constructeur (Socket) ne doit pas lever d'exception");
-		// etc... avec tous les tests nécessaires
-		
-	
+		// etc... avec tous les tests nÃ©cessaires
 	}
 
 	public static Class<? extends Service> getServiceClass(int numService) {
 			return servicesClasses.get(numService-1);
 	}
-	
-// toStringue liste les activités présentes
+	public static boolean serviceExist(String service) {
+		for(Class<? extends Service> s : servicesClasses)
+			if(service.equals(s.getSimpleName()))
+				return true;
+		return false;
+	}
+// toStringue liste les activitÃ©s prÃ©sentes
 	public static String toStringue() {
-		String result = "Activités présentes : ##";
+		String result = "ActivitÃ©s prÃ©sentes : ##";
 		int i = 1;
-		// foreach n'est qu'un raccourci d'écriture 
+		// foreach n'est qu'un raccourci d'Ã©criture 
 		// donc il faut prendre le verrou explicitement sur la collection
-		synchronized (servicesClasses) { 
+		synchronized (servicesClasses) {
+			if(servicesClasses.isEmpty())
+				result="Aucun service pour le moment";
 			for (Class<? extends Service> s : servicesClasses) {
 				try {
 					Method toStringue = s.getMethod("toStringue");
 					String string = (String) toStringue.invoke(s);
-					result = result + i + " " + string+"##";
+					result = result + i + ". " + string+"##";
 					i++;
 				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException e) {
-					e.printStackTrace(); // ??? - normalement déjà testé par validation()
+					e.printStackTrace(); // ??? - normalement dÃ©jÃ  testÃ© par validation()
 				}
 			}
 		}

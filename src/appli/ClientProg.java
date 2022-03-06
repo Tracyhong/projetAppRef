@@ -26,7 +26,7 @@ public class ClientProg {
                 if(in==null)
                     break;
                 System.out.println("Serveur : "+in);
-                System.out.println("\n>");
+                System.out.print("\n>");
                 //ecrire
                 line = clavier.readLine();
                 if (line.equals("exit")) {

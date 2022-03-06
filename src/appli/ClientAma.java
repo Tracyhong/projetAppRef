@@ -13,7 +13,7 @@ public class ClientAma {
 			BufferedReader socketIn = new BufferedReader (new InputStreamReader(sc.getInputStream ( )));
 			PrintWriter socketOut = new PrintWriter (sc.getOutputStream (), true);
 			BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));	
-			System.out.println(InetAddress.getLocalHost()+" (amateur) est connect� au port "+PORT+"\nPour se d�connecter, �crivez : \"exit\" \n");
+			System.out.println(InetAddress.getLocalHost()+" (amateur) est connecte au port "+PORT+"\nPour se deconnecter, ecrivez : \"exit\" \n");
 			String in;
 			String line;
 			//Boucle communication client/serveur. exit pour quitter
@@ -22,7 +22,7 @@ public class ClientAma {
 				if(in==null) 
 					break;
 				System.out.println("Serveur : "+in);
-				System.out.println("\n>");
+				System.out.print("\n>");
 				//ecrire
 				line = clavier.readLine();
 				if (line.equals("exit")) {
@@ -31,7 +31,7 @@ public class ClientAma {
 				// envoie au serveur
 				socketOut.println(line);
 			}
-			System.out.println("D�connexion");
+			System.out.println("Deconnexion");
 			sc.close();
 		}
 		catch (IOException e) {e.printStackTrace();}
