@@ -20,6 +20,12 @@ public class ClientProg {
             System.out.println(InetAddress.getLocalHost()+" (programmeur) est connect� au port "+PORT+"\nPour se d�connecter, �crivez : \"exit\" \n");
             String in;
             String line;
+            
+            //fonction identification;
+            
+            
+            
+            
             //Boucle communication client/serveur. exit pour quitter
             while(true) {
                 in=socketIn.readLine().replaceAll("##", "\n"); //pour un meilleur visuel ?

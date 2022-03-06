@@ -21,10 +21,10 @@ public class ServeurBRi implements Runnable {
 	public void run() {
 		try {
 			while(true) {
-//				if(listen_socket.getLocalPort()==PORT_PROG)
-//					new ServiceProg(listen_socket.accept())).start();
-//				else 
-				new ServiceAma(listen_socket.accept()).start();
+					if(listen_socket.getLocalPort()==PORT_PROG)
+						new ServiceProg(listen_socket.accept()).start();
+					//else 
+					//	new ServiceAma(listen_socket.accept()).start();
 			}
 		}
 		catch (IOException e) { 

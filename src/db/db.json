@@ -1,0 +1,8 @@
+[
+    {
+        "login":"user",
+        "password":"user",
+        "ftp":"ftp://localhost:2121"
+    }
+]
+
