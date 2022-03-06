@@ -35,27 +35,5 @@ public class ClientAma {
 			sc.close();
 		}
 		catch (IOException e) {e.printStackTrace();}
-		/*
-		@SuppressWarnings("resource")
-		Socket socket = new Socket(HOST, PORT_AMA);
-		BufferedReader sin = new BufferedReader (new InputStreamReader(socket.getInputStream ( )));
-		PrintWriter sout = new PrintWriter (socket.getOutputStream ( ), true);
-		BufferedReader clavierClient = new BufferedReader(new InputStreamReader(System.in));	
-		String val="init";
-		//Boucle ayant pour objectif d'assurer la comunication
-		while(true) {	
-			val=sin.readLine();
-			if(val==null) 
-				break;
-			System.out.println(val);
-			String message = clavierClient.readLine();
-			sout.println(message);
-		}
-		//On referme la socket
-		socket.close();
-		clavierClient.close();
-		*/
 	}
-	
-	
 }
