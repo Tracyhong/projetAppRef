@@ -27,13 +27,13 @@ public class ServiceCorrectionEspace extends Service {
 	
 			String corrLine = line.replaceAll("( ){2,}", " "); //expression reguliere pour supprimer les espaces a la suite
 			
-			out.println("Votre texte corrigé : "+corrLine + "##Fin du service de correction d'espace");
+			out.println("Votre texte corrigÃ© : "+corrLine + "##Fin du service de correction d'espace. Utiliser d'autres services ? (O/N)");
 			
 		}
 		catch (IOException e) {
 			//Fin du service de correction d'espace
 		}
-		try {client.close();} catch (IOException e) {e.printStackTrace();}
+
 	}
 
 	protected void finalize() throws Throwable {

@@ -21,24 +21,30 @@ public class ServiceAma extends Service{
 		try{
 			BufferedReader in = new BufferedReader (new InputStreamReader(client.getInputStream ( )));
 			PrintWriter out = new PrintWriter (client.getOutputStream ( ), true);
-			out.println(ServiceRegistry.toStringue()+"##Tapez le numéro de service désiré :");
-			int choix = Integer.parseInt(in.readLine());
-			Class<? extends Service> classe = ServiceRegistry.getServiceClass(choix);
-			
-			try {
-				Constructor<? extends Service> niou = classe.getConstructor(java.net.Socket.class);
-				Service service = niou.newInstance(this.client);
-				Method runne = classe.getMethod("run");
-				runne.invoke(service);
-			} catch (SecurityException | InstantiationException | IllegalAccessException
-					| IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
-				System.out.println(e);
+			boolean services=true;
+			while (services){
+				out.println(ServiceRegistry.toStringue()+"##Tapez le numéro de service désiré :");
+				int choix = Integer.parseInt(in.readLine());
+				Class<? extends Service> classe = ServiceRegistry.getServiceClass(choix);
+
+				try {
+					Constructor<? extends Service> niou = classe.getConstructor(java.net.Socket.class);
+					Service service = niou.newInstance(this.client);
+					Method runne = classe.getMethod("run");
+					runne.invoke(service);
+				} catch (SecurityException | InstantiationException | IllegalAccessException
+						| IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
+					System.out.println(e);
+				}
+				if(in.readLine().equals("N"))
+					services=false;
 			}
-			}
+
+		}
 		catch (IOException e) {
 			//Fin du service
 		}
-		try {client.close();} catch (IOException e2) {}
+		try {client.close();} catch (IOException e) {}
 		
 	}
 }

@@ -20,19 +20,19 @@ public class ServiceInversion extends Service {
 		try {BufferedReader in = new BufferedReader (new InputStreamReader(client.getInputStream ( )));
 			PrintWriter out = new PrintWriter (client.getOutputStream ( ), true);
 
-			out.println("MODIFICATION ##Bienvenue dans le service d'inversion. ##Tapez un texte a inverser");
+			out.println("MODIFICATION##Bienvenue dans le service d'inversion. ##Tapez un texte a inverser");
 		
 			String line = in.readLine();		
 	
 			String invLine = new String (new StringBuffer(line).reverse());
 			
-			out.println("Votre texte inverse : "+invLine + "##Fin du service d'inversion");
+			out.println("Votre texte inverse : "+invLine + "##Fin du service d'inversion. Utiliser d'autres services ? (O/N) ");
 			
 		}
 		catch (IOException e) {
 			//Fin du service d'inversion
 		}
-		try {client.close();} catch (IOException e) {e.printStackTrace();}
+
 	}
 
 	protected void finalize() throws Throwable {

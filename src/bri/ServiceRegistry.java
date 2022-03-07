@@ -22,6 +22,7 @@ public class ServiceRegistry {
 		// si non conforme --> exception
 		validation(runnableClass);
 		if(!serviceExist(runnableClass.getSimpleName())) servicesClasses.add(runnableClass);
+		else System.out.println("Service déjà existant");
 		System.out.println("Service "+runnableClass.getSimpleName()+" ajouté");
 	}
 
@@ -77,5 +78,14 @@ public class ServiceRegistry {
 		}
 		return result;
 	}
-
+	public static void supprService(String nomService){
+		servicesClasses.removeIf(s -> nomService.equals(s.getSimpleName()));
+		//System.gc();
+		/*	 EQUIVALENT
+		for(Class<? extends Service> s : servicesClasses){
+			if(nomService.equals(s.getSimpleName()))
+				servicesClasses.remove(s);
+		}
+		*/
+	}
 }

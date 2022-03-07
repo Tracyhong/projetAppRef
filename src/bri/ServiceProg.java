@@ -30,7 +30,7 @@ public class ServiceProg extends Service {
             Utilisateur user = null;
             //connexion
             while (log) {
-                out.println("Tapez le num�ro de service d�sir� :" +
+                out.println("Tapez le numero de service desire :" +
                         "##1 : connexion" +
                         "##2 : inscription (après inscription, il faut se connecter)");
                 switch (in.readLine()) {
@@ -97,16 +97,19 @@ public class ServiceProg extends Service {
                         case "2": //mettre à jour un service
                             out.println("Quel est le nom du service à mettre à jour ? (ex : nomService)"); // A TESTER !!
                             String nomService=in.readLine();
-                            String msg;
+                            String msg = null;
                             if(ServiceRegistry.serviceExist(nomService)) {
                                 try {
-                                    urlcl.loadClass( "services." + nomService).asSubclass(Service.class); //les services sont dans le package services
+                                    ServiceRegistry.supprService(nomService);
+                                    System.out.println("Service "+nomService+" supprimé");
+                                    ServiceRegistry.addService(urlcl.loadClass( "services." + nomService).asSubclass(Service.class)); //les services sont dans le package services
                                     msg="Service bien mis à jour.";
                                 }catch (ClassNotFoundException e) {
                                     msg="La classe n'est pas dans le serveur ftp";
+                                } catch (ValidationException e) {
+                                    e.printStackTrace();
                                 }
-                            }else
-                                msg="Service non mis à jour car il n'existe pas.";
+                            }else msg="Service non mis à jour car il n'existe pas.";
                             out.println(msg+"##Utiliser d'autres services ? (O/N) ");
                             if(in.readLine().equals("N"))
                                 services=false;
